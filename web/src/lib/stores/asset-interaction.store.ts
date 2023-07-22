@@ -6,6 +6,7 @@ import { assetGridState, assetStore } from './assets.store';
 // Asset Viewer
 export const viewingAssetStoreState = writable<AssetResponseDto>();
 export const isViewingAssetStoreState = writable<boolean>(false);
+export const showBigSearchBar = writable<boolean>(false);
 
 /**
  * Multi-selection mode

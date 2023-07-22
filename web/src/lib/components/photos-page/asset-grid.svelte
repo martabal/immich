@@ -7,6 +7,7 @@
     isMultiSelectStoreState,
     isViewingAssetStoreState,
     selectedAssets,
+    showBigSearchBar,
     viewingAssetStoreState,
   } from '$lib/stores/asset-interaction.store';
   import { assetGridState, assetStore, loadingBucketState } from '$lib/stores/assets.store';
@@ -84,14 +85,20 @@
 
   const handleKeyboardPress = (event: KeyboardEvent) => {
     if ($isSearchEnabled) {
+      switch (event.key) {
+        case 'Escape':
+          $showBigSearchBar = false;
+          return;
+      }
       return;
     }
 
     if (event.key === '/') {
       event.preventDefault();
     }
-
+    console.log(event.key);
     if (!$isViewingAssetStoreState) {
+      console.log('hello');
       switch (event.key) {
         case '/':
           goto(AppRoute.EXPLORE);
