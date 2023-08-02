@@ -20,12 +20,15 @@
   import { onDestroy, onMount } from 'svelte';
   import { browser } from '$app/environment';
   import MergeSuggestionModal from '$lib/components/faces-page/merge-suggestion-modal.svelte';
+  import ShowDelete from '$lib/components/faces-page/show-delete.svelte';
 
   export let data: PageData;
   let selectHidden = false;
+  let selectDelete = false;
   let initialHiddenValues: Record<string, boolean> = {};
 
   let eyeColorMap: Record<string, string> = {};
+  let deleteColorMap: Record<string, boolean> = {};
 
   let people = data.people.people;
   let countTotalPeople = data.people.total;
@@ -405,4 +408,34 @@
       </button>
     {/each}
   </ShowHide>
+{/if}
+{#if selectDelete}
+  <ShowDelete
+    on:doneClick={handleDoneClick}
+    on:closeClick={handleCloseClick}
+    on:reset-delete={handleResetVisibility}
+    on:toggle-delete={handleToggleVisibility}
+    bind:showLoadingSpinner
+    bind:toggleVisibility
+  >
+    {#each people as person (person.id)}
+      <button
+        class="relative h-36 w-36 md:h-48 md:w-48"
+        on:click={() => (person.isHidden = !person.isHidden)}
+      >
+        <ImageThumbnail
+          bind:hidden={person.isHidden}
+          shadow
+          url={api.getPeopleThumbnailUrl(person.id)}
+          altText={person.name}
+          widthStyle="100%"
+        />
+        {#if person.name}
+          <span class="absolute bottom-2 left-0 w-full select-text px-1 text-center font-medium text-white">
+            {person.name}
+          </span>
+        {/if}
+      </button>
+    {/each}
+  </ShowDelete>
 {/if}

@@ -4,6 +4,7 @@
   import { thumbHashToDataURL } from 'thumbhash';
   import { Buffer } from 'buffer';
   import EyeOffOutline from 'svelte-material-icons/EyeOffOutline.svelte';
+  import DeleteOffOutline from 'svelte-material-icons/DeleteOffOutline.svelte';
 
   export let url: string;
   export let altText: string;
@@ -14,6 +15,7 @@
   export let shadow = false;
   export let circle = false;
   export let hidden = false;
+  export let showDelete = false;
   export let border = false;
   let complete = false;
 
@@ -42,6 +44,12 @@
 {#if hidden}
   <div class="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] transform">
     <EyeOffOutline size="2em" color={eyeColor} />
+  </div>
+{/if}
+
+{#if showDelete}
+  <div class="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] transform">
+    <DeleteOffOutline size="2em" />
   </div>
 {/if}
 
